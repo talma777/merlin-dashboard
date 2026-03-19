@@ -1,0 +1,143 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --background: 222 47% 5%;
+    --foreground: 213 31% 91%;
+    --card: 222 47% 7%;
+    --card-foreground: 213 31% 91%;
+    --popover: 222 47% 7%;
+    --popover-foreground: 213 31% 91%;
+    --primary: 210 100% 56%;
+    --primary-foreground: 222 47% 5%;
+    --secondary: 222 30% 12%;
+    --secondary-foreground: 213 31% 75%;
+    --muted: 222 30% 10%;
+    --muted-foreground: 215 20% 50%;
+    --accent: 266 85% 58%;
+    --accent-foreground: 213 31% 91%;
+    --destructive: 0 73% 57%;
+    --destructive-foreground: 213 31% 91%;
+    --success: 142 71% 45%;
+    --success-foreground: 213 31% 91%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 222 47% 5%;
+    --border: 222 30% 13%;
+    --input: 222 30% 11%;
+    --ring: 210 100% 56%;
+    --radius: 0.5rem;
+    
+    /* Risk category colors */
+    --risk-low: 142 71% 45%;
+    --risk-medium: 38 92% 50%;
+    --risk-high: 25 90% 55%;
+    --risk-critical: 0 73% 57%;
+    
+    /* Sidebar */
+    --sidebar-width: 260px;
+    --sidebar-bg: 222 47% 6%;
+    --sidebar-border: 222 30% 11%;
+    --sidebar-item-hover: 222 30% 10%;
+    --sidebar-item-active: 210 100% 56%;
+  }
+}
+
+@layer base {
+  * {
+    border-color: hsl(var(--border));
+    box-sizing: border-box;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--muted));
+  }
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--border));
+    border-radius: 99px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--muted-foreground));
+  }
+}
+
+/* ── Utilities ── */
+@layer utilities {
+  .text-balance { text-wrap: balance; }
+  
+  /* Glassmorphism */
+  .glass {
+    background: rgba(255,255,255,0.03);
+    backdrop-filter: blur(12px);
+    border: 1px solid hsl(var(--border));
+  }
+  
+  /* Glow effects */
+  .glow-blue {
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.15), 0 0 60px rgba(59, 130, 246, 0.05);
+  }
+  .glow-purple {
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.15), 0 0 60px rgba(139, 92, 246, 0.05);
+  }
+  
+  /* Animations */
+  .animate-in {
+    animation: fadeIn 0.2s ease-out;
+  }
+  .slide-in-from-left {
+    animation: slideInLeft 0.25s ease-out;
+  }
+}
+
+/* ── Keyframes ── */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-8px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes pulse-ring {
+  0%   { transform: scale(1); opacity: 1; }
+  100% { transform: scale(1.4); opacity: 0; }
+}
+
+/* ── Risk badge colors ── */
+.risk-LOW      { color: hsl(var(--risk-low));      background: hsl(var(--risk-low) / 0.12);      border-color: hsl(var(--risk-low) / 0.3); }
+.risk-MEDIUM   { color: hsl(var(--risk-medium));   background: hsl(var(--risk-medium) / 0.12);   border-color: hsl(var(--risk-medium) / 0.3); }
+.risk-HIGH     { color: hsl(var(--risk-high));      background: hsl(var(--risk-high) / 0.12);     border-color: hsl(var(--risk-high) / 0.3); }
+.risk-CRITICAL { color: hsl(var(--risk-critical)); background: hsl(var(--risk-critical) / 0.12); border-color: hsl(var(--risk-critical) / 0.3); }
+
+/* ── Severity colors ── */
+.severity-INFO     { color: hsl(210 100% 60%); }
+.severity-WARNING  { color: hsl(38 92% 50%); }
+.severity-CRITICAL { color: hsl(25 90% 55%); }
+.severity-BLOCKER  { color: hsl(0 73% 57%); }
+
+/* Sidebar active item indicator */
+.nav-active {
+  background: hsl(var(--primary) / 0.12);
+  color: hsl(var(--primary));
+  border-right: 2px solid hsl(var(--primary));
+}
