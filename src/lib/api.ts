@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useAuthStore } from '@/stores/auth.store';
 
 export const api = axios.create({
-  baseURL: '/api/v1',
+  baseURL: import.meta.env.VITE_API_URL || 'https://api.merlin.com.ar/api/v1',
   timeout: 30000,
   headers: { 'Content-Type': 'application/json' },
 });

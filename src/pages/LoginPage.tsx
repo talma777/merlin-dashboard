@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuthStore } from '@/stores/auth.store';
 import { authApi } from '@/lib/api';
 import { Button, Input, Label } from '@/components/ui';
-import { Sparkles, Eye, EyeOff, ShieldCheck, Zap, Lock } from 'lucide-react';
+import { Sparkles, Eye, EyeOff, ShieldCheck, Zap, Lock, RefreshCcw } from 'lucide-react';
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -30,119 +30,156 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex" style={{ background: 'hsl(222 47% 4%)' }}>
-      {/* Left panel — branding */}
-      <div className="hidden lg:flex flex-col justify-between w-[480px] p-12 relative overflow-hidden"
-        style={{ background: 'linear-gradient(135deg, hsl(222 47% 7%) 0%, hsl(240 40% 9%) 100%)' }}>
-        {/* Background glow */}
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-0 left-0 w-72 h-72 rounded-full bg-blue-600/8 blur-3xl" />
-          <div className="absolute bottom-20 right-0 w-64 h-64 rounded-full bg-purple-600/8 blur-3xl" />
-        </div>
+    <div className="min-h-screen flex bg-slate-950 font-sans selection:bg-blue-500/30">
+      
+      {/* ── BACKGROUND GLOWS ── */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
+        <div className="absolute -top-[20%] -left-[10%] w-[50%] h-[50%] rounded-full bg-blue-600/10 blur-[120px]" />
+        <div className="absolute top-[40%] -right-[10%] w-[40%] h-[60%] rounded-full bg-purple-600/10 blur-[120px]" />
+        <div className="absolute -bottom-[20%] left-[20%] w-[60%] h-[40%] rounded-full bg-indigo-600/10 blur-[120px]" />
+      </div>
 
+      {/* ── LEFT PANEL (Branding) ── */}
+      <div className="hidden lg:flex flex-col justify-between w-[500px] xl:w-[600px] p-12 relative z-10 border-r border-white-[0.02] bg-slate-950/40 backdrop-blur-xl">
         <div className="relative">
-          <div className="flex items-center gap-3 mb-16">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center shadow-xl shadow-blue-900/30">
-              <Sparkles className="w-5 h-5 text-white" />
+          <div className="flex items-center gap-3 mb-20 animate-in slide-in-from-left duration-500">
+            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-blue-500/20 border border-white/10 relative group">
+              <div className="absolute inset-0 bg-white/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity" />
+              <Sparkles className="w-6 h-6 text-white" />
             </div>
-            <span className="text-lg font-bold text-white tracking-tight">Merlin</span>
+            <span className="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-400 tracking-tight">Merlin</span>
           </div>
 
-          <h1 className="text-3xl font-bold text-white leading-tight mb-4">
-            Compliance normativo<br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">
-              inteligente y trazable
-            </span>
-          </h1>
-          <p className="text-slate-400 text-sm leading-relaxed">
-            Plataforma RegTech para automatizar, estructurar y auditar procesos de compliance KYC/KYB según normativa UIF, BCRA y GAFI.
-          </p>
+          <div className="animate-in slide-in-from-left duration-700 delay-100 fill-mode-both">
+            <h1 className="text-5xl font-extrabold text-white leading-[1.1] mb-6 tracking-tight">
+              Compliance <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400">
+                inteligente y automatizado
+              </span>
+            </h1>
+            <p className="text-slate-400 text-lg leading-relaxed max-w-md font-light">
+              Plataforma RegTech B2B de nueva generación. Automatizá, estructurá y auditá tus procesos KYC/KYB en tiempo récord.
+            </p>
+          </div>
         </div>
 
-        <div className="relative space-y-4">
+        <div className="relative space-y-6 animate-in slide-in-from-left duration-1000 delay-200 fill-mode-both">
           {[
-            { icon: ShieldCheck, title: 'Normativa argentina', desc: 'UIF Res. 30/2017, BCRA COM A 6859, GAFI' },
-            { icon: Zap, title: 'Extracción con IA', desc: 'Gemini Vision para DNI, CUIT, estados contables' },
-            { icon: Lock, title: 'Auditoría inmutable', desc: 'Log completo de cada acción del sistema' },
+            { icon: ShieldCheck, title: 'Normativa UIF & GAFI', desc: 'Reglas de debida diligencia pre-configuradas' },
+            { icon: Zap, title: 'Extracción con IA Multimodal', desc: 'Lectura inteligente de DNIs y balances societarios' },
+            { icon: RefreshCcw, title: 'Sincronización Continua', desc: 'Monitoreo dinámico de riesgo operativo' },
           ].map(({ icon: Icon, title, desc }) => (
-            <div key={title} className="flex items-start gap-3">
-              <div className="w-8 h-8 rounded-lg bg-slate-700/60 border border-slate-600/30 flex items-center justify-center shrink-0">
-                <Icon className="w-4 h-4 text-blue-400" />
+            <div key={title} className="flex items-start gap-4 p-4 rounded-2xl bg-white/[0.02] border border-white/[0.05] hover:bg-white/[0.04] transition-colors">
+              <div className="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center shrink-0">
+                <Icon className="w-5 h-5 text-blue-400" />
               </div>
               <div>
-                <p className="text-xs font-medium text-slate-200">{title}</p>
-                <p className="text-xs text-slate-500">{desc}</p>
+                <p className="text-sm font-semibold text-slate-200">{title}</p>
+                <p className="text-sm text-slate-500 mt-1">{desc}</p>
               </div>
             </div>
           ))}
         </div>
       </div>
 
-      {/* Right panel — form */}
-      <div className="flex-1 flex items-center justify-center p-8">
-        <div className="w-full max-w-[380px] animate-in">
-          {/* Mobile logo */}
-          <div className="flex lg:hidden items-center gap-2 mb-8 justify-center">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
-              <Sparkles className="w-4 h-4 text-white" />
+      {/* ── RIGHT PANEL (Auth Form) ── */}
+      <div className="flex-1 flex flex-col items-center justify-center p-6 relative z-10 w-full">
+        <div className="w-full max-w-[420px] animate-in fade-in duration-700">
+          
+          {/* Mobile Logo */}
+          <div className="flex lg:hidden items-center gap-3 mb-12 justify-center">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-blue-500/20 border border-white/10">
+              <Sparkles className="w-5 h-5 text-white" />
             </div>
-            <span className="text-base font-bold text-white">Merlin</span>
+            <span className="text-xl font-bold text-white tracking-tight">Merlin</span>
           </div>
 
-          <h2 className="text-xl font-semibold text-white mb-1">Iniciar sesión</h2>
-          <p className="text-sm text-slate-500 mb-8">Ingresá con tus credenciales institucionales</p>
+          <div className="glass p-8 sm:p-10 rounded-3xl relative overflow-hidden shadow-2xl shadow-black/50">
+            {/* Subtle glass reflection */}
+            <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+            
+            <h2 className="text-2xl font-bold text-white mb-2 tracking-tight">Iniciar sesión</h2>
+            <p className="text-slate-400 text-sm mb-8 font-light">Bienvenido de vuelta. Ingresá tus credenciales.</p>
 
-          <form onSubmit={handleLogin} className="space-y-4">
-            <div>
-              <Label htmlFor="email">Email</Label>
-              <Input
-                id="email"
-                type="email"
-                value={email}
-                onChange={e => setEmail(e.target.value)}
-                placeholder="tu@empresa.com"
-                autoComplete="email"
-                required
-              />
-            </div>
-            <div>
-              <Label htmlFor="password">Contraseña</Label>
-              <div className="relative">
+            <form onSubmit={handleLogin} className="space-y-5">
+              <div className="space-y-1.5">
+                <Label htmlFor="email" className="text-slate-300 font-medium text-xs uppercase tracking-wider">Email institucional</Label>
                 <Input
-                  id="password"
-                  type={showPassword ? 'text' : 'password'}
-                  value={password}
-                  onChange={e => setPassword(e.target.value)}
-                  placeholder="••••••••"
-                  autoComplete="current-password"
+                  id="email"
+                  type="email"
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
+                  placeholder="admin@empresa.com"
+                  autoComplete="email"
                   required
+                  className="bg-slate-900/50 border-slate-700/50 focus:border-blue-500/50 focus:ring-blue-500/20 h-11 transition-all"
                 />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-300 transition-colors"
-                >
-                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                </button>
+              </div>
+              
+              <div className="space-y-1.5">
+                <div className="flex items-center justify-between">
+                  <Label htmlFor="password" className="text-slate-300 font-medium text-xs uppercase tracking-wider">Contraseña</Label>
+                  <a href="#" className="text-xs text-blue-400 hover:text-blue-300 transition-colors">¿Olvidaste tu contraseña?</a>
+                </div>
+                <div className="relative">
+                  <Input
+                    id="password"
+                    type={showPassword ? 'text' : 'password'}
+                    value={password}
+                    onChange={e => setPassword(e.target.value)}
+                    placeholder="••••••••"
+                    autoComplete="current-password"
+                    required
+                    className="bg-slate-900/50 border-slate-700/50 focus:border-blue-500/50 focus:ring-blue-500/20 h-11 transition-all pr-10"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-300 transition-colors"
+                  >
+                    {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                  </button>
+                </div>
+              </div>
+
+              {error && (
+                <div className="rounded-xl bg-red-500/10 border border-red-500/20 p-3 text-sm text-red-400 flex items-center gap-2 animate-in fade-in">
+                  <div className="w-1.5 h-1.5 rounded-full bg-red-500 shrink-0" />
+                  {error}
+                </div>
+              )}
+
+              <Button 
+                type="submit" 
+                className="w-full h-11 text-base font-medium bg-white text-slate-900 hover:bg-slate-200 transition-all rounded-xl mt-2 relative overflow-hidden group" 
+                disabled={loading}
+              >
+                {loading ? (
+                  <div className="flex items-center gap-2">
+                    <div className="w-4 h-4 border-2 border-slate-900/30 border-t-slate-900 rounded-full animate-spin" />
+                    <span>Verificando...</span>
+                  </div>
+                ) : (
+                  <span>Ingresar a la plataforma</span>
+                )}
+                <div className="absolute inset-0 bg-white/20 translate-y-[100%] group-hover:translate-y-0 transition-transform duration-300" />
+              </Button>
+            </form>
+
+            <div className="mt-8 pt-6 border-t border-white/[0.05]">
+              <div className="flex flex-col items-center justify-center gap-2 text-xs text-slate-500">
+                <p>Credenciales de Demo</p>
+                <div className="px-3 py-1.5 rounded-lg bg-slate-900/50 border border-slate-800 flex items-center gap-2 font-mono text-slate-400">
+                  <span>admin@merlin.com</span>
+                  <span className="text-slate-600">|</span>
+                  <span>Admin1234!</span>
+                </div>
               </div>
             </div>
-
-            {error && (
-              <div className="rounded-lg bg-red-500/10 border border-red-500/30 p-3 text-xs text-red-400">
-                {error}
-              </div>
-            )}
-
-            <Button type="submit" className="w-full mt-2" loading={loading}>
-              Ingresar
-            </Button>
-          </form>
-
-          {/* Hint */}
-          <div className="mt-6 pt-6 border-t border-slate-800">
-            <p className="text-xs text-slate-600 text-center">
-              Demo: admin@merlin.com / <span className="font-mono">Admin1234!</span>
-            </p>
+          </div>
+          
+          <div className="mt-8 text-center">
+            <p className="text-xs text-slate-500 font-light">&copy; {new Date().getFullYear()} Merlin RegTech. Todos los derechos reservados.</p>
           </div>
         </div>
       </div>
