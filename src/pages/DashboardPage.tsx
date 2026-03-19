@@ -8,7 +8,7 @@ import {
 } from '@/lib/utils';
 import {
   FolderOpen, AlertTriangle, CheckCircle, Clock,
-  ArrowRight, Users, Sparkles, Activity, ShieldCheck, FileSearch
+  ArrowRight, Users, Sparkles, Activity, ShieldCheck, FileSearch, TrendingUp
 } from 'lucide-react';
 import { AreaChart, Area, ResponsiveContainer, Tooltip as RechartsTooltip, XAxis, YAxis } from 'recharts';
 import type { Case, CaseStatus, RiskCategory } from '@/types/domain';
