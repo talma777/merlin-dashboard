@@ -23,7 +23,12 @@ export default function LoginPage() {
       setAuth(user, accessToken, refreshToken);
       navigate('/dashboard');
     } catch (err: any) {
-      setError(err.response?.data?.message ?? 'Credenciales inválidas. Intente nuevamente.');
+      console.error("Login Error Details:", err);
+      // Muestra el mensaje explícito si es problema de red o CORS
+      const errorMsg = err.response?.data?.message 
+        || (err.message === 'Network Error' ? 'Error de red. Revisa tu conexión o que la API de Merlin no esté bloqueada por tu navegador.' : err.message)
+        || 'Credenciales inválidas. Intente nuevamente.';
+      setError(errorMsg);
     } finally {
       setLoading(false);
     }
