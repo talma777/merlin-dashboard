@@ -26,7 +26,8 @@ export default function CasesPage() {
   const [statusFilter, setStatusFilter] = useState('');
   const [showNew, setShowNew] = useState(false);
   const [newType, setNewType] = useState<SubjectType>('NATURAL_PERSON');
-  const [newNotes, setNewNotes] = useState('');
+  const [newName, setNewName] = useState('');
+  const [newIdentifier, setNewIdentifier] = useState('');
 
   const { data: cases = [], isLoading } = useQuery<Case[]>({
     queryKey: ['cases'],
@@ -34,11 +35,12 @@ export default function CasesPage() {
   });
 
   const createMutation = useMutation({
-    mutationFn: () => casesApi.create({ subjectType: newType, internalNotes: newNotes }),
+    mutationFn: () => casesApi.create({ subjectType: newType, clientName: newName, clientIdentifier: newIdentifier }),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ['cases'] });
       setShowNew(false);
-      setNewNotes('');
+      setNewName('');
+      setNewIdentifier('');
     },
   });
 
@@ -67,7 +69,15 @@ export default function CasesPage() {
         <Card className="border-blue-500/30 bg-blue-500/5">
           <CardContent className="space-y-4">
             <h3 className="text-sm font-semibold text-slate-200">Nuevo expediente</h3>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-xs text-slate-400 mb-1">Nombre / Razón Social *</label>
+                <Input
+                  value={newName}
+                  onChange={e => setNewName(e.target.value)}
+                  placeholder="Ej: Juan Pérez SA"
+                />
+              </div>
               <div>
                 <label className="block text-xs text-slate-400 mb-1">Tipo de sujeto</label>
                 <Select value={newType} onChange={e => setNewType(e.target.value as SubjectType)}>
@@ -75,19 +85,23 @@ export default function CasesPage() {
                   <option value="LEGAL_ENTITY">Persona Jurídica (PJ)</option>
                 </Select>
               </div>
-              <div>
-                <label className="block text-xs text-slate-400 mb-1">Nota interna (opcional)</label>
+              <div className="md:col-span-2">
+                <label className="block text-xs text-slate-400 mb-1">Identificador (DNI / CUIT) - Opcional</label>
                 <Input
-                  value={newNotes}
-                  onChange={e => setNewNotes(e.target.value)}
-                  placeholder="Ej: Cliente referido por..."
+                  value={newIdentifier}
+                  onChange={e => setNewIdentifier(e.target.value)}
+                  placeholder="Ej: 30123456"
                 />
               </div>
             </div>
+            {createMutation.isError && (
+              <p className="text-xs text-red-400 mt-2">Error al crear. Asegurate de completar el Nombre.</p>
+            )}
             <div className="flex items-center gap-2">
               <Button
                 onClick={() => createMutation.mutate()}
                 loading={createMutation.isPending}
+                disabled={newName.trim().length < 2}
               >
                 Crear expediente
               </Button>
