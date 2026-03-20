@@ -48,7 +48,7 @@ export default function DashboardPage() {
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-white/[0.05]">
         <div>
           <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-400 tracking-tight leading-tight mb-2">
-            {greeting}, {user?.firstName}
+            {greeting}, {user?.fullName?.split(' ')[0] || 'Gestor'}
           </h1>
           <p className="text-sm text-slate-400 font-light flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)] animate-pulse" />

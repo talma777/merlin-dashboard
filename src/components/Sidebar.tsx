@@ -109,14 +109,14 @@ export default function Sidebar() {
               
               <div className="w-9 h-9 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shrink-0 shadow-inner overflow-hidden relative">
                 <span className="text-xs font-bold text-white z-10 shadow-black/50 drop-shadow-md">
-                  {getInitials(user.firstName, user.lastName)}
+                  {getInitials(user?.fullName?.split(' ')[0] || 'A', user?.fullName?.split(' ')[1] || 'M')}
                 </span>
                 <div className="absolute bottom-0 w-full h-1/2 bg-black/20" />
               </div>
               
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-semibold text-slate-200 truncate group-hover:text-white transition-colors">
-                  {user.firstName}
+                  {user?.fullName?.split(' ')[0] || 'Usuario'}
                 </p>
                 <p className="text-[10px] uppercase tracking-widest text-slate-500 truncate mt-0.5 font-medium">
                   {user.role.replace(/_/g, ' ')}
